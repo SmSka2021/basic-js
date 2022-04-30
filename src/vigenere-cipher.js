@@ -1,4 +1,4 @@
-/*const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require('../extensions/index.js');
 
 /**
  * Implement class VigenereCipheringMachine that allows us to create
@@ -20,7 +20,19 @@
  * 
  */
 class VigenereCipheringMachine {
-  encrypt(msg, key) {
+  constructor(direct = true){
+    this.direct = direct
+  }
+  encrypt(msg1, key1) {
+   
+    if(!msg1 || !key1){
+      throw new Error("Incorrect arguments!");
+    }
+    if(!this.direct){
+      msg1 = msg1.split("").reverse().join("")
+    }
+let msg = msg1.toLowerCase()
+let key = key1.toLowerCase()
     let count = 0;
     let decodMsg = "";
     for (let i = 0; i < msg.length; i++) {
@@ -46,23 +58,43 @@ class VigenereCipheringMachine {
     }
     return res;
   }
-
   decodChar(ind1, ind2) {
     return ((ind1 + ind2 - 97 * 2) % 26) + 97;
   }
-
+  undecodChar(ind1, ind2) {
+    return ((ind1 - ind2 +26) % 26) + 97;
+  }
 
   
-  decrypt() {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  decrypt(msg1, key1) {
+    if(!msg1 || !key1){
+      throw new Error("Incorrect arguments!");
+    }
+    if(!this.direct){
+      msg1 = msg1.split("").reverse().join("")
+    }
+    let msg = msg1.toLowerCase()
+    let key = key1.toLowerCase()
+    let count = 0;
+    let decodMsg = "";
+    for (let i = 0; i < msg.length; i++) {
+      if (!this.isAlfa(msg[i])) {
+        decodMsg += msg[i];
+        count += 1;
+        continue;
+      }
+      let keyInd = (i - count) % key.length;
+      let item = this.undecodChar(msg.charCodeAt(i), key.charCodeAt(keyInd));
+      decodMsg += String.fromCharCode(item);
+    }
+    return decodMsg.toUpperCase();
   }
 }
 
-/*module.exports = {
+module.exports = {
   VigenereCipheringMachine
 };
-*/
+
 console.log(2);
 let newCar = new VigenereCipheringMachine();
-console.log(newCar.encrypt("attack at dawn!", "alphonse"));
+console.log(newCar.encrypt('Same length key', 'Samelengthkey'));
