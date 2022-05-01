@@ -53,5 +53,3 @@ return res
 module.exports = {
   repeater
 };
-repeater(repeater('la', { repeatTimes: 3 }))
-//, 'la+la+la');
