@@ -17,8 +17,7 @@ const { NotImplementedError } = require('../extensions/index.js');
 function isMAC48Address(str) {  
   let clone = str
   let strNotNumb =clone.replace(/[0-9A-F]/gi,'')
-   let newAr= strNotNumb.split("")
-    console.log(newAr)
+   let newAr= strNotNumb.split("") 
    if(newAr.length !== 5){
     return false 
      } else{

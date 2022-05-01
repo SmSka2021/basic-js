@@ -28,11 +28,11 @@ function getSeason(date) {
 ///??????//////
 
 let strDate = JSON.stringify(date)
-console.log(strDate) 
+
 //////////////
 
 let mouns = strDate.slice(6,8)
-console.log(mouns )
+
 if((+mouns> 0 && +mouns<3) || +mouns ==12){
   return seazon[0]
 }
