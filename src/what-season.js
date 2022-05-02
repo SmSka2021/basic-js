@@ -11,6 +11,8 @@ const { NotImplementedError } = require('../extensions/index.js');
  * getSeason(new Date(2020, 02, 31)) => 'spring'
  * 
  */
+ 
+
 function getSeason(date) {
   if(!date){
    return 'Unable to determine the time of year!'
@@ -18,16 +20,18 @@ function getSeason(date) {
   if(!(date instanceof Date)){
     throw new Error ('Invalid date!')
   }
- const seazon=  ["winter", "spring", "summer", "autumn"]
+  if(typeof date ==="string"){
+    throw new Error ('Invalid date!')
+  }
  
-/////???????///
-  //let dataNow = new Date()
-  ///let dataNow1=dataNow.toDateString()
- // let dataFormat = date.toDateString() 
-  
-///??????//////
-
-let strDate = JSON.stringify(date)
+ try {
+  date.getTime();
+}
+  catch{
+      throw new Error("Invalid date!");
+}
+ const seazon=  ["winter", "spring", "summer", "autumn"]
+ let strDate = JSON.stringify(date)
 
 //////////////
 
@@ -52,4 +56,11 @@ if(+mouns>= 9 && +mouns<12){
 module.exports = {
   getSeason
 };
-
+/* фейковая дата не проходит!!!
+const fakeDate = {
+  toString() {
+      return Date.prototype.toString.call(new Date());
+  },
+  [Symbol.toStringTag]: 'Date'
+};
+*/
